@@ -1,4 +1,7 @@
 const axios = require("axios");
+require('dotenv').config();
+
+const creds = Buffer.from("bitcoins:" + process.env.BITCOIN_S_ORACLE_RPC_PASSWORD).toString('base64')
 const options_ticker = {
   method: "POST",
   url: "https://blockchain.info/ticker",
@@ -7,7 +10,7 @@ const options_oracle = {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    Authorization: "Basic Yml0Y29pbnM6cGFzc3dvcmQ=",
+    Authorization: "Basic " + creds,
   },
   url: "http://127.0.0.1:9998/",
 };
