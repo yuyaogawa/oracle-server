@@ -1,0 +1,17 @@
+openapi: 3.0.0
+info:
+  title: "A getting started API."
+  version: "3.0.0"
+paths: {}
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    eventName:
+      type: string
