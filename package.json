@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "format": "prettier --write api-v1",
+    "format": "prettier --write api-v1 cronjob.js",
     "lint": "eslint api-v1",
     "lint:fix": "eslint api-v1 --fix"
   },

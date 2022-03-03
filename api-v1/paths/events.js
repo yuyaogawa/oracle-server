@@ -17,7 +17,7 @@ module.exports = function () {
       return res.status(200).json(error);
     }
 
-    res.status(200).json(announcements.data.result);
+    res.status(200).json(announcements.data.result.sort());
   }
   // NOTE: We could also use a YAML string here.
   GET.apiDoc = {
