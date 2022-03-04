@@ -1,8 +1,18 @@
+# Oracle server
+Oracle server is an interface of bitcoin-s-oracle-server and Bitcoin price (BTC/USD)
+
 ### Install
 ```
+git clone {this repo}
+cd oracle-server
+npm install
+```
+### Configure
+
+```
+cp .env.example .env
 ```
 
-### Setup 
 ```
 npx prisma migrate reset
 npx prisma migrate dev --name init
@@ -10,6 +20,7 @@ prisma migrate dev --name added_job_title
 ```
 
 ### Obtain bitcoinscala
+https://bitcoin-s.org/docs/oracle/oracle-server
 ```
 docker pull bitcoinscala/bitcoin-s-oracle-server:latest
 docker run -d -p 9998:9998 -e BITCOIN_S_ORACLE_RPC_PASSWORD=password bitcoinscala/bitcoin-s-oracle-server:latest
@@ -25,15 +36,17 @@ Basic Credentials is Base64 encode as following format
 bitcoins:BITCOIN_S_ORACLE_RPC_PASSWORD
 ```
 
-
-https://bitcoin-s.org/docs/oracle/oracle-server
-
+### Run
 ```
-curl -s -X GET http://localhost:4000/events/
-
+npm start
 ```
 
+### Example
 ```
-curl -s -X GET http://localhost:4000/signatures/
+curl -s -X GET http://localhost:4000/events
+curl -s -X GET http://localhost:4000/events/{eventName}
+```
 
+```
+curl -s -X GET http://localhost:4000/signatures
 ```
