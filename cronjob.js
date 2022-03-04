@@ -23,8 +23,11 @@ async function main() {
   current_price = current_price.data.USD.last;
   console.log(current_price);
 
-  const last_price = await prisma.oracle.aggregate({
+  const max = await prisma.oracle.aggregate({
     _max: { id: true },
+  });
+  const last_price = await prisma.oracle.findUnique({
+    where: { id: max._max.id },
   });
 
   if (parseInt(last_price.data) < current_price) {
