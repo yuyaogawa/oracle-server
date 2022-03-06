@@ -26,10 +26,16 @@ async function main() {
   const max = await prisma.oracle.aggregate({
     _max: { id: true },
   });
-  const last_price = await prisma.oracle.findUnique({
-    where: { id: max._max.id },
-  });
 
+  // FIXME: databases in oracle-server and bitcoin-s-oracle have to be same recode
+  let last_price = 0;
+  if (max._max.id > 0) {
+    last_price = await prisma.oracle.findUnique({
+      where: { id: max._max.id },
+    });
+  }
+
+  console.log(last_price);
   if (parseInt(last_price.data) < current_price) {
     console.log("Yes");
     const outcome = "Yes";

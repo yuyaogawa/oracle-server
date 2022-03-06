@@ -29,7 +29,7 @@ docker run -d -p 9998:9998 -e BITCOIN_S_ORACLE_RPC_PASSWORD=password bitcoinscal
 You can check if the orcale server is running
 ```
 docker exec -it <container name> /bin/bash
-curl --data-binary '{"jsonrpc": "1.0", "method": "getpublickey", "params": []}' -H "Content-Type: application/json" -H "Authorization: Basic Your_Credentials" http://127.0.0.1:9998/
+curl --data-binary '{"jsonrpc": "1.0", "method": "getpublickey", "params": []}' -H "Content-Type: application/json" -H "Authorization: Basic Yml0Y29pbnM6cGFzc3dvcmQ=" http://127.0.0.1:9998/
 ```
 Basic Credentials is Base64 encode as following format
 ```

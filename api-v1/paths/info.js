@@ -6,18 +6,18 @@ module.exports = function () {
     GET,
   };
   async function GET(req, res, next) {
-    const listannouncements = `{"jsonrpc": "1.0", "method": "listannouncements", "params": []}`;
-    const announcements = await oracleService.curlOracle(listannouncements);
-    console.log(announcements.data);
-    if (!announcements.data) {
+    const getpublickey = `{"jsonrpc": "1.0", "method": "getpublickey", "params": []}`;
+    const publickey = await oracleService.curlOracle(getpublickey);
+    console.log(publickey.data);
+    if (!publickey.data) {
       const error = {
         status: "error",
-        message: "This hashX is not found.",
+        message: "publickey is not found.",
       };
       return res.status(200).json(error);
     }
 
-    res.status(200).json(announcements.data.result.sort().reverse());
+    res.status(200).json(publickey.data.result);
   }
   // NOTE: We could also use a YAML string here.
   GET.apiDoc = {
