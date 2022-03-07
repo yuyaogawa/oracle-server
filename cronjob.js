@@ -3,11 +3,16 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function main() {
+
+  let current_price = await oracleService.getPrice();
+  current_price = current_price.data.USD.last;
+  console.log(current_price);
+
   const current = new Date();
   const x_minutes_from_now = current.getTime() + 300000; //300sec(5mins)
   const outcomes = '"Yes", "No"';
   const maturationtime = new Date(x_minutes_from_now).toISOString(); //in ISO 8601 format
-  const eventName = "BTC_price_will_be_up_at_" + maturationtime;
+  const eventName = `BTC_price[${current_price}]_will_be_up_at_${maturationtime}` // + maturationtime;
   let outcome = "";
 
   const createenumannouncement = `{"jsonrpc": "1.0", "id": "curltest", "method": "createenumannouncement", "params": ["${eventName}", "${maturationtime}", [${outcomes}]]}`;
@@ -15,13 +20,8 @@ async function main() {
 
   const res1 = await oracleService.curlOracle(createenumannouncement);
   //console.log(res1);
-
   const res2 = await oracleService.curlOracle(getannouncement);
   //console.log(res2);
-
-  let current_price = await oracleService.getPrice();
-  current_price = current_price.data.USD.last;
-  console.log(current_price);
 
   const max = await prisma.oracle.aggregate({
     _max: { id: true },
