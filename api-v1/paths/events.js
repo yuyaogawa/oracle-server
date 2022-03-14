@@ -12,21 +12,34 @@ module.exports = function () {
     if (!announcements.data) {
       const error = {
         status: "error",
-        message: "This hashX is not found.",
+        message: "Event is not found",
       };
-      return res.status(200).json(error);
+      return res.status(404).json(error);
     }
 
     res.status(200).json(announcements.data.result.sort().reverse());
   }
   // NOTE: We could also use a YAML string here.
   GET.apiDoc = {
-    summary: "Get data",
-    operationId: "GetData",
+    summary: "Lists all event names",
+    operationId: "getEvents",
     parameters: [],
     responses: {
       200: {
-        description: "Return data",
+        description: "Return event names",
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/Events' },
+          },
+        },
+      },
+      404: {
+        description: "Event is not found",
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/Error' },
+          },
+        },
       },
     },
   };

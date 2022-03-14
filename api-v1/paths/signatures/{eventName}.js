@@ -16,9 +16,9 @@ module.exports = function () {
     if (signatures.data.result == null) {
       const error = {
         status: "error",
-        message: "This event is not found.",
+        message: "This event is not found",
       };
-      return res.status(200).json(error);
+      return res.status(404).json(error);
     }
     const signature = await tlvUtil.getSigfromTlv(signatures.data.result);
     res.status(200).json(signature);
@@ -26,7 +26,7 @@ module.exports = function () {
   // NOTE: We could also use a YAML string here.
   GET.apiDoc = {
     summary: "Get signatures",
-    operationId: "GetData",
+    operationId: "getSignatures",
     parameters: [
       {
         in: "path",
@@ -37,7 +37,20 @@ module.exports = function () {
     ],
     responses: {
       200: {
-        description: "Return data",
+        description: "Return signatures",
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/Signatures' },
+          },
+        },
+      },
+      404: {
+        description: "Event is not found",
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/Error' },
+          },
+        },
       },
     },
   };

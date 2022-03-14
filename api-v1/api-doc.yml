@@ -9,9 +9,85 @@ components:
     Error:
       type: object
       properties:
-        code:
+        status:
           type: string
         message:
           type: string
     eventName:
       type: string
+    Event:
+      type: object
+      properties:
+        nonces:
+          type: string
+          description: >
+            nonces
+        eventName:
+          type: string
+          description: >
+            eventName
+        signingVersion:
+          type: string
+          description: >
+            signingVersion
+        maturationTime:
+          type: string
+          description: >
+            maturationTime
+        announcementSignature:
+          type: string
+          description: >
+            announcementSignature
+        eventDescriptorTLV:
+          type: string
+          description: >
+            eventDescriptorTLV
+        eventTLV:
+          type: string
+          description: >
+            eventTLV
+        announcementTLV:
+          type: string
+          description: >
+            announcementTLV
+        attestations:
+          type: string
+          description: >
+            attestations
+        signatures:
+          type: string
+          description: >
+            signatures
+        outcomes:
+          type: string
+          description: >
+            outcomes
+        signedOutcome:
+          type: string
+          description: >
+            signedOutcome
+    OraclePubkey:
+      type: object
+      properties:
+        pubkey:
+          type: string
+          description: >
+            Oracle's pubkey
+    Events:
+      type: array
+      items:
+        type: object
+        properties:
+          eventName:
+            type: string
+            description: >
+              event name
+    Signatures:
+      type: array
+      items:
+        type: object
+        properties:
+          signatures:
+            type: string
+            description: >
+              signatures

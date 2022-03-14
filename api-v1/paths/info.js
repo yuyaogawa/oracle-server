@@ -12,21 +12,34 @@ module.exports = function () {
     if (!publickey.data) {
       const error = {
         status: "error",
-        message: "publickey is not found.",
+        message: "Publickey is not found",
       };
-      return res.status(200).json(error);
+      return res.status(404).json(error);
     }
 
     res.status(200).json(publickey.data.result);
   }
   // NOTE: We could also use a YAML string here.
   GET.apiDoc = {
-    summary: "Get data",
-    operationId: "GetData",
+    summary: "Get Oracle's public key",
+    operationId: "getOraclePubkey",
     parameters: [],
     responses: {
       200: {
-        description: "Return data",
+        description: "Return Oracle's public key",
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/OraclePubkey' },
+          },
+        },
+      },
+      404: {
+        description: "Publickey is not found",
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/Error' },
+          },
+        },
       },
     },
   };

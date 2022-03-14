@@ -16,15 +16,15 @@ module.exports = function () {
         status: "error",
         message: "This event is not found.",
       };
-      return res.status(200).json(error);
+      return res.status(404).json(error);
     }
 
     res.status(200).json(announcement.data.result);
   }
   // NOTE: We could also use a YAML string here.
   GET.apiDoc = {
-    summary: "Get data",
-    operationId: "GetData",
+    summary: "Get an event's details",
+    operationId: "getEvent",
     parameters: [
       {
         in: "path",
@@ -35,7 +35,20 @@ module.exports = function () {
     ],
     responses: {
       200: {
-        description: "Return data",
+        description: "Return an event's details",
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/Event' },
+          },
+        },
+      },
+      404: {
+        description: "Event is not found",
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/Error' },
+          },
+        },
       },
     },
   };
