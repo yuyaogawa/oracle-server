@@ -50,3 +50,10 @@ curl -s -X GET http://localhost:4000/events/{eventName}
 ```
 curl -s -X GET http://localhost:4000/signatures
 ```
+
+
+### Cronjob
+Cronjob should be set up to execute the following command so that this Oracle server creates an event every X mins. 
+```
+node cronjob.js
+```
