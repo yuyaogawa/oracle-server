@@ -22,7 +22,7 @@ module.exports = function () {
     }
     const signature = await tlvUtil.getSigfromTlv(signatures.data.result);
     const result = {
-      signatures: signature
+      signatures: [signature]
     }
     res.status(200).json(result);
   }
