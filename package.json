@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "format": "prettier --write api-v1 cronjob.js",
     "lint": "eslint api-v1",
-    "lint:fix": "eslint api-v1 --fix"
+    "lint:fix": "eslint api-v1 --fix",
+    "test": "jest"
   },
   "dependencies": {
     "@prisma/client": "^3.10.0",
@@ -26,7 +27,9 @@
   "devDependencies": {
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.4.0",
+    "jest": "^27.5.1",
     "prettier": "^2.5.1",
-    "prisma": "^3.10.0"
+    "prisma": "^3.10.0",
+    "supertest": "^6.2.2"
   }
 }

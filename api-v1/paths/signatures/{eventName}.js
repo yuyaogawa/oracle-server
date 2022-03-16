@@ -21,7 +21,10 @@ module.exports = function () {
       return res.status(404).json(error);
     }
     const signature = await tlvUtil.getSigfromTlv(signatures.data.result);
-    res.status(200).json(signature);
+    const result = {
+      signatures: signature
+    }
+    res.status(200).json(result);
   }
   // NOTE: We could also use a YAML string here.
   GET.apiDoc = {

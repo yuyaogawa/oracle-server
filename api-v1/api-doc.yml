@@ -76,18 +76,13 @@ components:
     Events:
       type: array
       items:
-        type: object
-        properties:
-          eventName:
-            type: string
-            description: >
-              event name
+        type: string
     Signatures:
-      type: array
-      items:
-        type: object
-        properties:
-          signatures:
+      type: object
+      properties:
+        signatures:
+          description: >
+            signatures
+          type: array
+          items:
             type: string
-            description: >
-              signatures

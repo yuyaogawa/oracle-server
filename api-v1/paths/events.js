@@ -8,7 +8,7 @@ module.exports = function () {
   async function GET(req, res, next) {
     const listannouncements = `{"jsonrpc": "1.0", "method": "listannouncements", "params": []}`;
     const announcements = await oracleService.curlOracle(listannouncements);
-    console.log(announcements.data);
+    //console.log(announcements.data);
     if (!announcements.data) {
       const error = {
         status: "error",

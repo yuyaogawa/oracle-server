@@ -6,7 +6,7 @@ const creds = Buffer.from(
 ).toString("base64");
 const options_ticker = {
   method: "POST",
-  url: "https://blockchain.info/ticker",
+  url: process.env.TICKER_SERVER,
 };
 const options_oracle = {
   method: "POST",
@@ -14,7 +14,7 @@ const options_oracle = {
     "Content-Type": "application/json",
     Authorization: "Basic " + creds,
   },
-  url: "http://127.0.0.1:9998/",
+  url: process.env.BITCOIN_S_ORACLE_SERVER,
 };
 
 const oracleService = {

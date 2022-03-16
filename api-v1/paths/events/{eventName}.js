@@ -7,10 +7,10 @@ module.exports = function () {
   };
   async function GET(req, res, next) {
     const eventName = req.params.eventName;
-    console.log(eventName);
+    //console.log(eventName);
     const getannouncement = `{"jsonrpc": "1.0", "method": "getannouncement", "params": ["${eventName}"]}`;
     const announcement = await oracleService.curlOracle(getannouncement);
-    console.log(announcement.data);
+    //console.log(announcement.data);
     if (announcement.data.result == null) {
       const error = {
         status: "error",
