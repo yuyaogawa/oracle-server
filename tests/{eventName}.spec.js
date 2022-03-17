@@ -17,7 +17,7 @@ describe('GET /events/{eventName}', () => {
     const res = await request(app)
       .get('/events/' + 'hoge')
       .send({});
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(404);
     expect(res.body).toEqual({
       status: 'error',
       message: 'This event is not found.',
