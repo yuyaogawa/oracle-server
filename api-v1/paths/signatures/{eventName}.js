@@ -16,7 +16,7 @@ module.exports = function () {
     if (signatures.data.result == null) {
       const error = {
         status: "error",
-        message: "This event is not found",
+        message: "This event is not found.",
       };
       return res.status(404).json(error);
     }
