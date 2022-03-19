@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 async function main() {
 
   let current_price = await oracleService.getPrice();
-  current_price = current_price.data.USD.last;
+  current_price = current_price.data.last;
   console.log(current_price);
 
   const current = new Date();
