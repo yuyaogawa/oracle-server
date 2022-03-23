@@ -1,6 +1,12 @@
 # Oracle server
 Oracle server is an interface of bitcoin-s-oracle-server and Bitcoin price (BTC/USD)
 
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) Version 14 or higher
+- [Docker](https://www.docker.com/) Version 20.10 or higher
+  - This is needed to run Bitcoin-S-Oracle
+
 ### Install
 ```
 git clone {this repo}
@@ -21,9 +27,10 @@ prisma migrate dev --name added_job_title
 
 ### Obtain bitcoinscala
 https://bitcoin-s.org/docs/oracle/oracle-server
+https://hub.docker.com/r/bitcoinscala/bitcoin-s-oracle-server/tags?page=1&ordering=last_updated
 ```
 docker pull bitcoinscala/bitcoin-s-oracle-server:latest
-docker run -d -p 9998:9998 -e BITCOIN_S_ORACLE_RPC_PASSWORD=password bitcoinscala/bitcoin-s-oracle-server:latest
+docker run -d -p 9998:9998 --restart  unless-stopped -e BITCOIN_S_ORACLE_RPC_PASSWORD=password bitcoinscala/bitcoin-s-oracle-server:latest
 ```
 
 You can check if the orcale server is running
@@ -45,6 +52,10 @@ npm start
 Cronjob should be set up to execute the following command so that this Oracle server creates an event every X mins. 
 ```
 node cronjob.js
+```
+To set crontab
+```
+*/5 * * * * cd /home/ubuntu/oracle-server && /usr/bin/node cronjob.js h >> /home/ubuntu/logs/oracle-server.log 2>&1
 ```
 
 ### Example
