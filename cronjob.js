@@ -36,7 +36,7 @@ async function main() {
   }
 
   console.log(last_price);
-  if (parseInt(last_price.data) < current_price) {
+  if (parseInt(last_price.strikePrice) < current_price) {
     console.log("Yes");
     const outcome = "Yes";
     const signenum = `{"jsonrpc": "1.0", "id": "curltest", "method": "signenum", "params": ["${last_price.eventName}", "${outcome}"]}`;
@@ -44,7 +44,7 @@ async function main() {
     if (res3.data.result) {
       console.log(res3.data.result);
     }
-  } else if (parseInt(last_price.data) >= current_price) {
+  } else if (parseInt(last_price.strikePrice) >= current_price) {
     console.log("No");
     const outcome = "No";
     const signenum = `{"jsonrpc": "1.0", "id": "curltest", "method": "signenum", "params": ["${last_price.eventName}", "${outcome}"]}`;
@@ -55,8 +55,15 @@ async function main() {
   }
 
   try {
-    const oracle = await prisma.oracle.create({
-      data: { data: current_price.toString(), eventName: eventName },
+    if (max._max.id > 0) {
+      const update = await prisma.oracle.update({
+        where: { id: max._max.id },
+        data: { closedPrice: current_price.toString() },
+      });
+    }
+    const create = await prisma.oracle.create({
+      data: { strikePrice: current_price.toString(),
+              eventName: eventName },
     });
   } catch (err) {
     console.log(err);

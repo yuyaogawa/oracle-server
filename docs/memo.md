@@ -6,6 +6,8 @@ Oracle data should be deleted on a regular basis. Otherwise, the server will be 
 $ docker exec -it [container_id] /bin/bash
 $ cd /home/bitcoin-s/.bitcoin-s/oracle
 $ sqlite3 oracle.sqlite
+> select count(*) from events;
+> select count(*) from events where maturation_time < CAST((julianday('now', '-1 day') - 2440587.5)*86400000 AS INTEGER);
 > delete from events where maturation_time < CAST((julianday('now', '-1 day') - 2440587.5)*86400000 AS INTEGER);
 ```
 
