@@ -1,4 +1,4 @@
-const oracleService = require("../services/oracleService");
+const oracleService = require("../../services/oracleService");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 module.exports = function () {
@@ -6,30 +6,42 @@ module.exports = function () {
     GET,
   };
   async function GET(req, res, next) {
-    const listannouncements = `{"jsonrpc": "1.0", "method": "listannouncements", "params": []}`;
-    const announcements = await oracleService.curlOracle(listannouncements);
-    console.log(announcements);
-    if (announcements == undefined || !announcements.data) {
+    const eventName = req.params.eventName;
+    console.log(eventName);
+
+    const prices = await prisma.oracle.findMany({
+      where: { eventName: eventName },
+    });
+
+    console.log(prices);
+    if (prices.length < 1) {
       const error = {
         status: "error",
-        message: "Event is not found",
+        message: "This event is not found.",
       };
       return res.status(404).json(error);
     }
 
-    res.status(200).json(announcements.data.result.sort().reverse());
+    res.status(200).json(prices);
   }
   // NOTE: We could also use a YAML string here.
   GET.apiDoc = {
-    summary: "Lists all event names",
-    operationId: "getEvents",
-    parameters: [],
+    summary: "Get an event's details",
+    operationId: "getEvent",
+    parameters: [
+      {
+        in: "path",
+        name: "eventName",
+        required: true,
+        schema: { $ref: "#/components/schemas/eventName" },
+      },
+    ],
     responses: {
       200: {
-        description: "Return event names",
+        description: "Return an event's details",
         content: {
           'application/json': {
-            schema: { $ref: '#/components/schemas/Events' },
+            schema: { $ref: '#/components/schemas/Event' },
           },
         },
       },
