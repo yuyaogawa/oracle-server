@@ -38,7 +38,7 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(null, {
     swaggerOptions: {
-      url: "http://localhost:4000/api-docs",
+      url: "/api-docs",
     },
   })
 );
@@ -47,7 +47,7 @@ app.use(
   '/docs',
   redoc({
     title: 'API Docs',
-    specUrl: 'http://localhost:4000/api-docs'
+    specUrl: '/api-docs'
   })
 );
 
