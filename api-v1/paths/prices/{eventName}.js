@@ -9,9 +9,21 @@ module.exports = function () {
     const eventName = req.params.eventName;
     console.log(eventName);
 
-    const prices = await prisma.oracle.findMany({
-      where: { eventName: eventName },
-    });
+    let prices;
+    if (eventName === "latest"){
+      prices = await prisma.oracle.findMany({
+        orderBy: [
+          {
+            id: 'desc'
+          }
+        ],
+        take: 1
+      });
+    } else {
+      prices = await prisma.oracle.findMany({
+        where: { eventName: eventName },
+      });
+    }
 
     console.log(prices);
     if (prices.length < 1) {
