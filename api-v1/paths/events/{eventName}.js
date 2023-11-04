@@ -6,8 +6,13 @@ module.exports = function () {
     GET,
   };
   async function GET(req, res, next) {
-    const eventName = req.params.eventName;
+    let eventName = req.params.eventName;
     //console.log(eventName);
+    if (eventName == "latest") {
+      const listannouncements = `{"jsonrpc": "1.0", "method": "listannouncements", "params": []}`;
+      const announcements = await oracleService.curlOracle(listannouncements);
+      eventName = (announcements.data.result.sort().reverse()[0]);
+    }
     const getannouncement = `{"jsonrpc": "1.0", "method": "getannouncement", "params": ["${eventName}"]}`;
     const announcement = await oracleService.curlOracle(getannouncement);
     //console.log(announcement.data);
