@@ -9,7 +9,7 @@ async function main() {
   console.log(current_price);
 
   const current = new Date();
-  const x_minutes_from_now = current.getTime() + 300000; //300sec(5mins)
+  const x_minutes_from_now = current.getTime() + 600000; //300sec(5mins)
   const outcomes = '"Yes", "No"';
   const maturationtime = new Date(x_minutes_from_now).toISOString(); //in ISO 8601 format
   const eventName = `BTC_price_will_be_up_at_${maturationtime}_[${current_price}]` // + maturationtime;
